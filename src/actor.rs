@@ -92,7 +92,10 @@ impl Actor {
 		let file = File::open(Path::new(&path))?;
 		let json: Value = serde_json::from_reader(file)?;
 		let name = match json.get("name") {
-			Some(value) => value.to_string(),
+			Some(value) => match value.as_str(){
+				Some(value) => value.to_string(),
+				None => return Err(Error::empty(ErrorKind::InvalidJson))
+			},
 			None => return Err(Error::empty(ErrorKind::InvalidJson))
 		};
 		let private_key_pem = match json.get("privateKeyPem"){
