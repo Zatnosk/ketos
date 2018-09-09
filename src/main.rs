@@ -1,8 +1,8 @@
-#[macro_use]
-extern crate warp;
+#[macro_use] extern crate warp;
 extern crate openssl;
-#[macro_use]
-extern crate serde_json;
+#[macro_use] extern crate serde_json;
+#[macro_use] extern crate log;
+extern crate pretty_env_logger;
 
 mod error;
 mod actor;
@@ -57,6 +57,7 @@ fn actor_endpoint(actors_ref: &Arc<Mutex<HashMap<String,Actor>>>) -> impl Fn(Str
 }
 
 fn main() {
+	pretty_env_logger::init();
 	let actors = Arc::new(Mutex::new(HashMap::new()));
 	let zatnosk = match Actor::load_from_file("zatnosk") {
 		Ok(actor) => actor,
@@ -75,7 +76,8 @@ fn main() {
 	let routes = warp::get2().and(
 		webfinger
 		.or(actor_path)
-	);
+	).with(warp::log("ketos::requests"));
 
+	info!("Starting web service");
 	warp::serve(routes).run(([127,0,0,1],3000))
 }
