@@ -79,5 +79,5 @@ fn main() {
 	).with(warp::log("ketos::requests"));
 
 	info!("Starting web service");
-	warp::serve(routes).run(([127,0,0,1],3000))
+	warp::serve(routes).run(([127,0,0,1],3100))
 }
