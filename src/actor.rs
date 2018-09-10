@@ -66,7 +66,7 @@ impl Actor {
 			"links":[
 				{
 					"rel": "self",
-					"type": "application/activitypub+json",
+					"type": "application/activity+json",
 					"href": format!("https://ap.zatnosk.dk/{}", self.name)
 				}
 			]
