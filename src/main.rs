@@ -70,7 +70,8 @@ fn main() {
 	};
 	actors.lock().unwrap().insert(String::from("zatnosk"), zatnosk);
 
-	let webfinger = path!(".well-known"/"webfinger").and(warp::query::query()).and_then(webfinger(&actors));
+	let webfinger = path!(".well-known"/"webfinger").and(warp::query::query()).and_then(webfinger(&actors))
+		.with(warp::reply::with::header("content-type","application/jrd+json; charset=utf-8"));
 	let actor_path = path!(String).and_then(actor_endpoint(&actors));
 
 	let routes = warp::get2().and(
