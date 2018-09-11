@@ -1,8 +1,7 @@
 extern crate openssl;
 
-use openssl::rsa::Rsa;
-
 use error::{Error, ErrorKind};
+use openssl::rsa::Rsa;
 use serde_json;
 use serde_json::Value;
 use std::fs;

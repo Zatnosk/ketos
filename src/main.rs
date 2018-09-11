@@ -11,7 +11,6 @@ mod actor;
 mod error;
 
 use actor::Actor;
-
 use std::collections::HashMap;
 use std::sync::{Arc, Mutex};
 use warp::Filter;
